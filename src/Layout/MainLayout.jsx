@@ -24,11 +24,17 @@ export default function MainLayout() {
     // Get current user information
     useEffect(() => {
         currentuser();
+    //    setUser({
+    //         first_name: "Admin",
+    //         last_name: "User",
+    //         user_type_id: 1,
+    //     });
     }, []);
 
     const currentuser = async () => {
         try {
             const response = await axios.get("/api/currentuser/v1");
+            console.log("user", response);
             setUser(response.data.data);
         } catch (error) {
             console.log("error", error);
@@ -138,7 +144,7 @@ export default function MainLayout() {
                                 style={{ backgroundColor: '#87d068', marginRight: 8 }}
                                 src= {AiOutlineUser}  // Replace with user avatar if available
                             >
-                                {user.name[0].toUpperCase()}
+                                {user.first_name[0] + user.last_name[0].toUpperCase()}
                             </Avatar>
                             <Dropdown overlay={menu}>
                                 <span style={{ cursor: 'pointer', color: '#000' }}>
