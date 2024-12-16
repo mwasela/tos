@@ -2,57 +2,70 @@ import ProLayout from "@ant-design/pro-layout";
 import gbhlIcon from "../public/bslogo.png";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { FiBriefcase, FiUsers } from "react-icons/fi";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../helpers/axios";
-import { AiOutlineMerge, AiOutlineTeam, AiTwotoneCar, AiOutlineSwap ,
-     AiOutlineReconciliation, AiOutlineInteraction,
-     AiOutlineUserAdd, AiOutlineInsertRowLeft, AiOutlinePlusSquare } from "react-icons/ai";
-
-
+import {
+    AiOutlineMerge, AiTwotoneCar, AiOutlineSwap,
+    AiOutlineReconciliation, AiOutlineTeam, AiOutlineUserAdd,
+    AiOutlineInsertRowLeft, AiOutlinePlusSquare, AiOutlineUser
+} from "react-icons/ai";
+import { Avatar, Dropdown, Menu } from "antd";
 
 export default function MainLayout() {
-
-
-    const [user_id, setUser_id] = React.useState(null);
-
-    // const getUser = () => {
-    //    const request =  axios.get("/user/current");
-    //     request.then((response) => {
-    //         setUser_id(response.data.user_.blk_unittracker_users_status);
-    //         //console.log("User", response);
-    //         return response;
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    
-    // }
-    // useEffect(() => {
-    //     getUser();
-    // }, []);
-
-    
-
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const [user, setUser] = useState(null);
+    const avatarUrl = "https://avatars.dicebear.com/api/avataaars/1234.svg";
+
+
+    // Manage the openKeys state for controlling which submenu is open
+    const [openKeys, setOpenKeys] = useState([]);
+
+    // Get current user information
+    useEffect(() => {
+        currentuser();
+    }, []);
+
+    const currentuser = async () => {
+        try {
+            const response = await axios.get("/api/currentuser/v1");
+            setUser(response.data.data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
+    // Control which menus are open, allowing only one to be open at a time
+    const handleOpenChange = (keys) => {
+        setOpenKeys(keys);
+    };
+
     useEffect(() => {
         if (!token) {
             navigate("/login");
         }
     }, [token, navigate]);
 
-
-
+    // Create dropdown menu for user actions (e.g., logout)
+    const menu = (
+        <Menu>
+            <Menu.Item key="logout">
+                <Link to="/login">Logout</Link>
+            </Menu.Item>
+        </Menu>
+    );
 
     return (
-    <ProLayout
-            //logo={gbhlIcon}
+        <ProLayout
             title="Application"
             layout="mix"
+            openKeys={openKeys} // Add openKeys to control expanded menus
+            onOpenChange={handleOpenChange} // Handle menu open/close state
             menuDataRender={() => [
                 {
                     path: "/",
                     name: "Delivery orders",
-                    icon: <AiOutlineSwap  />,
+                    icon: <AiOutlineSwap />,
                 },
                 {
                     path: "/WBActivity",
@@ -64,77 +77,80 @@ export default function MainLayout() {
                     name: "Processed Orders",
                     icon: <AiOutlineTeam />,
                 },
-                {
-                    path: "/Customers",
-                    name: "Customers",
-                    icon: <AiOutlineUserAdd  />,
-                },
-                {
-                    path: "/CustomerType",
-                    name: "Customer Type",
+                user && user.user_type === 1 && {
+                    name: "Masters",
                     icon: <FiBriefcase />,
-                },
-                {
-                    path: "/Products",
-                    name: "Products",
-                    icon: <AiOutlineInsertRowLeft />,
-                },
-                {
-                    path: "/ProductType",
-                    name: "Product Type",
-                    icon: <AiOutlinePlusSquare />,
-                },
-                {
-                    path: "/Drivers",
-                    name: "Drivers",
-                    icon: <AiTwotoneCar  />,
-                },
-             
-                {
-                    path: "/ActivityPoint",
-                    name: "Activity Point",
-                    icon: <AiOutlineMerge />,
-                },
-                {
-                    path: "/ActivityType",
-                    name: "Activity Type",
-                    icon: <AiOutlineInteraction  />,
-                },
-                {
-                    path: "/Home",
-                    name: "Users",
-                    icon: <FiBriefcase />,
+                    children: [
+                        {
+                            path: "/Customers",
+                            name: "Customers",
+                            icon: <AiOutlineUserAdd />,
+                        },
+                        {
+                            path: "/CustomerType",
+                            name: "Customer Type",
+                            icon: <FiBriefcase />,
+                        },
+                        {
+                            path: "/Products",
+                            name: "Products",
+                            icon: <AiOutlineInsertRowLeft />,
+                        },
+                        {
+                            path: "/ProductType",
+                            name: "Product Type",
+                            icon: <AiOutlinePlusSquare />,
+                        },
+                        {
+                            path: "/Drivers",
+                            name: "Drivers",
+                            icon: <AiTwotoneCar />,
+                        },
+                    ],
                 },
                 {
                     path: "/login",
                     name: "Logout",
                     icon: <FiUsers />,
-                }
-        
-        
-        
-        
-        
-                // Sample Role based views
-                // user_id && user_id === 1 &&  {
-                //     path: "/Units",
-                //     name: "Container Units",
-                //     icon: <FiUsers />,
-                // },
-                // user_id && user_id === 1 && {
-                //     path: "/Stations",
-                //     name: "Station Management",
-                //     icon: <FiUsers />,
-                // },
-        
+                },
             ]}
-            menuItemRender={(item, dom) => <Link to={item.path} onClick={()=>{
-                navigate(item.path);
-              }}>{dom}</Link>}
-            >
+            subMenuItemRender={(item, dom) => (
+                item.children ? (
+                    <span>{dom}</span>
+                ) : (
+                    <Link to={item.path}>{dom}</Link>
+                )
+            )}
+            menuItemRender={(item, dom) => (
+                item.children ? (
+                    <span>{dom}</span>
+                ) : (
+                    <Link to={item.path} onClick={() => navigate(item.path)}>
+                        {dom}
+                    </Link>
+                )
+            )}
+            rightContentRender={() => (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    {user && (
+                        <>
+                            <Avatar
+                                style={{ backgroundColor: '#87d068', marginRight: 8 }}
+                                src= {AiOutlineUser}  // Replace with user avatar if available
+                            >
+                                {user.name[0].toUpperCase()}
+                            </Avatar>
+                            <Dropdown overlay={menu}>
+                                <span style={{ cursor: 'pointer', color: '#000' }}>
+                                    {user.name}
+                                </span>
+                            </Dropdown>
+                        </>
+                    )}
+                </div>
+            )}
+        >
             <Outlet />
-
         </ProLayout>
-
-    )
+    );
 }
