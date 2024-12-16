@@ -77,7 +77,7 @@ export default function MainLayout() {
                     name: "Processed Orders",
                     icon: <AiOutlineTeam />,
                 },
-                user && user.user_type === 1 && {
+                user && user.user_type_id === 1 && {
                     name: "Masters",
                     icon: <FiBriefcase />,
                     children: [
