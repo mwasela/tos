@@ -35,7 +35,7 @@ export default function MainLayout() {
         try {
             const response = await axios.get("/api/currentuser/v1");
             console.log("user", response);
-            setUser(response.data.data);
+            setUser(response.data.data[0]);
         } catch (error) {
             console.log("error", error);
         }
