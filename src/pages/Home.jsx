@@ -42,8 +42,8 @@ export default function Register() {
         },
         {
             title: "Role",
-            dataIndex: "user_type",
-            key: "type",
+            dataIndex: "user_type_id",
+            key: "user_type_id",
             search: false,
             render: (text) => {
                 //if 1 render active button
