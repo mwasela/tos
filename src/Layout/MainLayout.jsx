@@ -112,6 +112,11 @@ export default function MainLayout() {
                             name: "Drivers",
                             icon: <AiTwotoneCar />,
                         },
+                        {
+                            path: "/Home",  
+                            name: "Users",
+                            icon: <AiOutlineUser />,
+                        }
                     ],
                 },
                 {
