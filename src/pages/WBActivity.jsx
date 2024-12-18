@@ -65,7 +65,7 @@ export default function App() {
             search: false
         },
         {
-            title: "Customer",
+            title: "Client",
             dataIndex: "customer",
             key: "customer",
             search: false

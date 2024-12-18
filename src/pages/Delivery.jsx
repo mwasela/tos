@@ -28,8 +28,8 @@ export default function App() {
         },
         {
             title: "Product",
-            dataIndex: "product",
-            key: "product",
+            dataIndex: "product_id",
+            key: "product_id",
             search: false
         },
         {
@@ -39,7 +39,7 @@ export default function App() {
             search: false
         },
         {
-            title: "Customer",
+            title: "Client",
             dataIndex: "customer",
             key: "customer",
             search: false
@@ -147,7 +147,7 @@ export default function App() {
 
     <ProFormSelect
         name="customer"
-        label="Customer"
+        label="Client"
         rules={[{ required: true, message: "Please select the customer." }]}
         showSearch={true}
         request={async () => {
@@ -176,7 +176,7 @@ export default function App() {
         rules={[{ required: true, message: "Please enter the trailer plate." }]}
     />
     <ProFormSelect
-        name="product"
+        name="product_id"
         label="Product"
         showSearch={true}
         rules={[{ required: true, message: "Please enter the driver name." }]}
