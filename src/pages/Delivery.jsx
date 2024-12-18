@@ -176,7 +176,7 @@ export default function App() {
         rules={[{ required: true, message: "Please enter the trailer plate." }]}
     />
     <ProFormSelect
-        name="producttype"
+        name="product_type"
         label="Product Type"
         showSearch={true}
         rules={[{ required: true, message: "Please enter the driver name." }]}
@@ -195,7 +195,7 @@ export default function App() {
         }}
     />
     <ProFormSelect
-        name="packing_type_id"
+        name="packing_type"
         label="Packing Type"
         rules={[{ required: true, message: "Please select packing type." }]}
         request={async () => {
