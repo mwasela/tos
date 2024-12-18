@@ -28,14 +28,14 @@ export default function App() {
         },
         {
             title: "Product",
-            dataIndex: "product_id",
-            key: "product_id",
+            dataIndex: "producttype",
+            key: "producttype",
             search: false
         },
         {
             title: "Packing Type",
-            dataIndex: "packing_type_id",
-            key: "packing_type_id",
+            dataIndex: "packingtype",
+            key: "packingtype",
             search: false
         },
         {
@@ -78,14 +78,6 @@ export default function App() {
             </Button>
             <ProTable
                 columns={columns}
-                //hide reset and query
-                // dataSource={[
-                //     { id: 1, truck: "KAQ453L", trailer: "ZC0978", driver: "Jason Murume", quantity: 100, status: 1 },
-                //     { id: 2, truck: "KDD54RQ", trailer: "ZD5642", driver: "Livingstone High", quantity: 200, status: 1 },
-                //     { id: 3, truck: "KAS472A", trailer: "ZD6651", driver: "Alan Mgenge", quantity: 300, status: 1 },
-                //     { id: 4, truck: "KDR672J", trailer: "ZD7659", driver: "Mgeni Jijini", quantity: 300, status: 0 },
-
-                // ]}
                 toolBarRender={false}
                 search={false}
                 actionRef={tableRef}
