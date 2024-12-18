@@ -13,6 +13,8 @@ import Delivery from "./pages/Delivery";
 import ProductType from "./pages/ProductType";
 import ActivityType from "./pages/ActivityType";
 import Processed from "./pages/Processed";
+import Packing from "./pages/Packing";
+import PackingType from "./pages/PackingType";
 import { FiBriefcase, FiUsers } from "react-icons/fi";
 
 
@@ -26,17 +28,19 @@ const router = createBrowserRouter([
       children: [
         
         {path: "/", element: <Delivery /> },
-        {path: "/Customers", element: <Customers />},
-        {path: "/Products", element: <Products />},
-        {path: "/Drivers", element: <Drivers />},
-        {path: "/CustomerType", element: <CustomerType />},
-        {path: "/ActivityPoint", element: <ActivityPoint />},
-        {path: "/Delivery", element: <Delivery />},
-        {path: "/WBActivity", element: <WBActivity />},
-        {path: "/ProductType", element: <ProductType />},
-        {path: "/ActivityType", element: <ActivityType />},
-        {path: "/Processed", element: <Processed />},
-        {path: "/Home", element: <Home />},
+        {path: "/masters/customers", element: <Customers />},
+        {path: "/masters/products", element: <Products />},
+        {path: "/masters/drivers", element: <Drivers />},
+        {path: "/masters/customerType", element: <CustomerType />},
+        {path: "/activityPoint", element: <ActivityPoint />},
+        {path: "/delivery", element: <Delivery />},
+        {path: "/wbActivity", element: <WBActivity />},
+        {path: "/masters/producttype", element: <ProductType />},
+        {path: "/activityType", element: <ActivityType />},
+        {path: "/processed", element: <Processed />},
+        {path: "/masters/home", element: <Home />},
+        {path: "/masters/packing", element: <Packing />},
+        {path: "/masters/packingtype", element: <PackingType />},
        
 
    

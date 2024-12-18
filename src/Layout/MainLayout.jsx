@@ -24,11 +24,11 @@ export default function MainLayout() {
     // Get current user information
     useEffect(() => {
         currentuser();
-    //    setUser({
-    //         first_name: "Admin",
-    //         last_name: "User",
-    //         user_type_id: 1,
-    //     });
+       setUser({
+            first_name: "Admin",
+            last_name: "User",
+            user_type_id: 1,
+        });
     }, []);
 
     const currentuser = async () => {
@@ -74,46 +74,57 @@ export default function MainLayout() {
                     icon: <AiOutlineSwap />,
                 },
                 {
-                    path: "/WBActivity",
+                    path: "/wbactivity",
                     name: "Delivery Activities",
                     icon: <AiOutlineReconciliation />,
                 },
                 {
-                    path: "/Processed",
+                    path: "/processed",
                     name: "Processed Orders",
                     icon: <AiOutlineTeam />,
                 },
                 user && user.user_type_id === 1 && {
                     name: "Masters",
+                    path: "/masters",
                     icon: <FiBriefcase />,
                     children: [
                         {
-                            path: "/Customers",
+                            path: "/masters/customers",
                             name: "Customers",
                             icon: <AiOutlineUserAdd />,
                         },
                         {
-                            path: "/CustomerType",
+                            path: "/masters/customertype",
                             name: "Customer Type",
                             icon: <FiBriefcase />,
                         },
                         {
-                            path: "/Products",
+                            path: "/masters/products",
                             name: "Products",
                             icon: <AiOutlineInsertRowLeft />,
                         },
                         {
-                            path: "/ProductType",
+                            path: "/masters/producttype",
                             name: "Product Type",
                             icon: <AiOutlinePlusSquare />,
                         },
                         {
-                            path: "/Drivers",
+                            path: "/masters/packing",
+                            name: "Packing",
+                            icon: <AiOutlineMerge />,
+                        },
+                        {
+                            path: "/masters/packingtype",
+                            name: "Packing Type",
+                            icon: <AiOutlineMerge />,
+                        },
+                        {
+                            path: "/masters/drivers",
                             name: "Drivers",
                             icon: <AiTwotoneCar />,
                         },
                         {
-                            path: "/Home",  
+                            path: "/masters/home",  
                             name: "Users",
                             icon: <AiOutlineUser />,
                         }

@@ -27,15 +27,15 @@ export default function App() {
             search: false,
         },
         {
-            title: "Driver",
-            dataIndex: "driver",
-            key: "driver",
+            title: "Product",
+            dataIndex: "product",
+            key: "product",
             search: false
         },
         {
-            title: "Quantity",
-            dataIndex: "measurement",
-            key: "measurement",
+            title: "Packing Type",
+            dataIndex: "packing_type_id",
+            key: "packing_type_id",
             search: false
         },
         {
@@ -176,13 +176,13 @@ export default function App() {
         rules={[{ required: true, message: "Please enter the trailer plate." }]}
     />
     <ProFormSelect
-        name="driver"
-        label="Driver"
+        name="product"
+        label="Product"
         showSearch={true}
         rules={[{ required: true, message: "Please enter the driver name." }]}
         request={async () => {
             try {
-                const res = await axios.get("/api/driver/list/v1");
+                const res = await axios.get("/api/product/list/v1");
                 return res.data.data.map((item) => {
                     return {
                         label: item.name,
@@ -194,11 +194,24 @@ export default function App() {
             }
         }}
     />
-    <ProFormText
-        name="measurement"
-        label="Quantity"
-        rules={[{ required: true, message: "Please enter the quantity." }]}
-        type="number"
+    <ProFormSelect
+        name="packing_type_id"
+        label="Packing Type"
+        rules={[{ required: true, message: "Please select packing type." }]}
+        request={async () => {
+            try {
+
+                const res = await axios.get("/api/packingtype/list/v1");
+                return res.data.data.map((item) => {
+                    return {
+                        label: item.name,
+                        value: item.id
+                    };
+                });
+            } catch (error) {
+                return [];
+            }
+        }}
     />
 
 </ModalForm>
