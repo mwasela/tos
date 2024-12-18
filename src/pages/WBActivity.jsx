@@ -52,12 +52,12 @@ export default function App() {
             key: "trailer",
             search: false,
         },
-        {
-            title: "Driver",
-            dataIndex: "driver",
-            key: "driver",
-            search: false
-        },
+        // {
+        //     title: "Driver",
+        //     dataIndex: "driver",
+        //     key: "driver",
+        //     search: false
+        // },
         {
             title: "Quantity",
             dataIndex: "measurement",
