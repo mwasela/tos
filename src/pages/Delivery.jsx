@@ -176,13 +176,13 @@ export default function App() {
         rules={[{ required: true, message: "Please enter the trailer plate." }]}
     />
     <ProFormSelect
-        name="product_id"
-        label="Product"
+        name="producttype"
+        label="Product Type"
         showSearch={true}
         rules={[{ required: true, message: "Please enter the driver name." }]}
         request={async () => {
             try {
-                const res = await axios.get("/api/product/list/v1");
+                const res = await axios.get("/api/producttype/list/v1");
                 return res.data.data.map((item) => {
                     return {
                         label: item.name,
