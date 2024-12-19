@@ -239,25 +239,6 @@ export default function App() {
                                     }}
                                 />
                             </Col>
-                            <Col span={4}>
-                                <ProFormText
-                                    name="quantity"
-                                    label="Quantity"
-                                    rules={[{ required: true, message: "Please enter the quantity." }]}
-                                    type="number"
-                                />
-                            </Col>
-                            <Col span={4}>
-                                <ProFormSelect
-                                    name="unit"
-                                    label="Unit"
-                                    rules={[{ required: true, message: "Please select the unit." }]}
-                                    options={[
-                                        { label: "KG", value: 1 },
-                                        { label: "Litre", value: 2 }
-                                    ]}
-                                />
-                            </Col>
                             <Col span={5}>
 
                                 <ProFormSelect
@@ -277,6 +258,25 @@ export default function App() {
                                     }}
                                 />
                             </Col>
+                            <Col span={4}>
+                                <ProFormText
+                                    name="unit"
+                                    label="Unit"
+                                    rules={[{ required: true, message: "Please select the unit." }]}
+                                    type="number"
+
+                                />
+                            </Col>
+                            <Col span={4}>
+                                <ProFormText
+                                    name="quantity"
+                                    label="Quantity"
+                                    rules={[{ required: true, message: "Please enter the quantity." }]}
+                                    type="number"
+                                />
+                            </Col>
+
+
                         </Row>
 
                     </>
