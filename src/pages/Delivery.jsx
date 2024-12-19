@@ -222,13 +222,13 @@ export default function App() {
                             </Col>
                             <Col span={5}>
                                 <ProFormSelect
-                                    name="product_type"
-                                    label="Product Type"
+                                    name="product"
+                                    label="Product"
                                     showSearch={true}
-                                    rules={[{ required: true, message: "Please select the product type." }]}
+                                    rules={[{ required: true, message: "Please select the product." }]}
                                     request={async () => {
                                         try {
-                                            const res = await axios.get("/api/producttype/list/v1");
+                                            const res = await axios.get("/api/product/list/v1");
                                             return res.data.data.map((item) => ({
                                                 label: item.name,
                                                 value: item.id
