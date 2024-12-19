@@ -264,6 +264,18 @@ export default function App() {
                                     label="Unit"
                                     rules={[{ required: true, message: "Please select the unit." }]}
                                     type="number"
+                                    request={async () => {
+                                        try {
+                                            const res = await axios.get("api/packing/list/v1");
+                                            return res.data.data.map((item) => ({
+                                                label: item.name,
+                                                value: item.id
+                                            }));
+                                        } catch (error) {
+                                            return [];
+                                        }
+                                    }   
+                                }
 
                                 />
                             </Col>
