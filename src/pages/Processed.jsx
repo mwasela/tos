@@ -28,13 +28,13 @@ export default function App() {
             search: false,
         },
         {
-            title: "Tare",
+            title: "First Weight",
             dataIndex: "tare_weight",
             key: "tare_weight",
             search: false
         },
         {
-            title: "Gross",
+            title: "Second Weight",
             dataIndex: "gross_weight",
             key: "gross_weight",
             search: false

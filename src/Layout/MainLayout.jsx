@@ -119,6 +119,11 @@ export default function MainLayout() {
                             icon: <AiOutlineMerge />,
                         },
                         {
+                            path: "/masters/vessel",
+                            name: "Vessel",
+                            icon: <AiOutlineMerge />,
+                        },
+                        {
                             path: "/masters/drivers",
                             name: "Drivers",
                             icon: <AiTwotoneCar />,

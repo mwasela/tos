@@ -148,7 +148,7 @@ export default function App() {
                 onFinish={async (values) => {
                     try {
 
-                        console.log("values", values);
+                        //console.log("values", values);
                         values.isactive = true;
                         await axios.post("api/createfinisheddeliveryorders/v1", values);
                         notification.success({
@@ -194,7 +194,7 @@ export default function App() {
                     <ProFormText
                         name="trailer_no"
                         label="Trailer"
-                        rules={[{ required: true, message: "Please enter the trailer plate." }]}
+                        // /rules={[{ required: true, message: "Please enter the trailer plate." }]}
                     />
                 </ProForm.Group>
 
@@ -213,14 +213,8 @@ export default function App() {
                     <>
 
                         <Row gutter={16} >
-                            <Col span={5}>
-                                <ProFormText
-                                    name="sku_no"
-                                    label="SKU"
-                                    rules={[{ required: true, message: "Please enter the SKU No." }]}
-                                />
-                            </Col>
-                            <Col span={5}>
+                 
+                            <Col span={6}>
                                 <ProFormSelect
                                     name="product"
                                     label="Product"
@@ -239,7 +233,7 @@ export default function App() {
                                     }}
                                 />
                             </Col>
-                            <Col span={5}>
+                            <Col span={6}>
 
                                 <ProFormSelect
                                     name="packing_type"
@@ -258,7 +252,7 @@ export default function App() {
                                     }}
                                 />
                             </Col>
-                            <Col span={4}>
+                            <Col span={6}>
                                 <ProFormText
                                     name="unit"
                                     label="Unit"
@@ -274,12 +268,12 @@ export default function App() {
                                         } catch (error) {
                                             return [];
                                         }
-                                    }   
-                                }
+                                    }
+                                    }
 
                                 />
                             </Col>
-                            <Col span={4}>
+                            <Col span={6}>
                                 <ProFormText
                                     name="quantity"
                                     label="Quantity"
@@ -343,7 +337,7 @@ export default function App() {
                 <ProFormText
                     name="trailer_no"
                     label="Trailer"
-                    rules={[{ required: true, message: "Please enter the trailer plate." }]}
+                    //rules={[{ required: true, message: "Please enter the trailer plate." }]}
                 />
 
 
@@ -356,6 +350,24 @@ export default function App() {
                     request={async () => {
                         try {
                             const res = await axios.get("/api/producttype/list/v1");
+                            return res.data.data.map((item) => ({
+                                label: item.name,
+                                value: item.id
+                            }));
+                        } catch (error) {
+                            return [];
+                        }
+                    }}
+                />
+
+                <ProFormSelect
+                    name="product"
+                    label="Product"
+                    showSearch={true}
+                    rules={[{ required: true, message: "Please select the product." }]}
+                    request={async () => {
+                        try {
+                            const res = await axios.get("/api/product/list/v1");
                             return res.data.data.map((item) => ({
                                 label: item.name,
                                 value: item.id
@@ -384,6 +396,30 @@ export default function App() {
                         }
                     }}
                 />
+     <ProFormSelect
+                    name="vessel"
+                    label="Vessel"
+                    rules={[{ required: true, message: "Please select vessel." }]}
+                    request={async () => {
+                        try {
+                            const res = await axios.get("/api/vessel/list/v1");
+                            return res.data.data.map((item) => ({
+                                label: item.name,
+                                value: item.id
+                            }));
+                        } catch (error) {
+                            return [];
+                        }
+                    }}
+                />
+
+                <ProFormText
+                    name="do_no"
+                    label="Delivery Order No."
+                    rules={[{ required: true, message: "Please enter the delivery order no." }]}
+                />
+
+
 
 
             </ModalForm>

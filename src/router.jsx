@@ -16,6 +16,7 @@ import Processed from "./pages/Processed";
 import Packing from "./pages/Packing";
 import PackingType from "./pages/PackingType";
 import { FiBriefcase, FiUsers } from "react-icons/fi";
+import Vessel from "./pages/Vessel";
 
 
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
         {path: "/masters/home", element: <Home />},
         {path: "/masters/packing", element: <Packing />},
         {path: "/masters/packingtype", element: <PackingType />},
+        {path: "/masters/vessel", element: <Vessel />},
        
 
    
