@@ -24,11 +24,11 @@ export default function MainLayout() {
     // Get current user information
     useEffect(() => {
         currentuser();
-       setUser({
-            first_name: "Admin",
-            last_name: "User",
-            user_type_id: 1,
-        });
+    //    setUser({
+    //         first_name: "Admin",
+    //         last_name: "User",
+    //         user_type_id: 1,
+    //     });
     }, []);
 
     const currentuser = async () => {
