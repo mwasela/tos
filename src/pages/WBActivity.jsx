@@ -14,15 +14,61 @@ export default function App() {
     const [activitypoint, setActivityPoint] = React.useState(0);
     const [weight, setWeight] = React.useState(0);
     const [weight1, setWeight2] = React.useState(0);
+    const [address, setAddress] = React.useState(null);
+    const [activitycheck, setActivityCheck] = React.useState(0);
+
+
+    React.useEffect(() => {
+        //if (weight) return;
+        //if (!address) return;
+      getWeight(address);
+    }, []);
+
+    // React.useEffect(() => {
+    //     // Create a new EventSource connection to the /api/data endpoint
+    //     //if (!address) return;   
+    //     const eventSource = new EventSource(`http://192.168.195.56:3010/api/weight/v1?host=?${address}`);
+    
+    //     // Listen for messages from the server
+    //     eventSource.onmessage = function(event) {
+    //       const parsedData = JSON.parse(event.data);
+    //       // Update the state with the received data
+    //       console.log("parsedData", parsedData);    
+    //       setWeight(parsedData);
+    //     };
+    //     eventSource.onerror = function() {
+    //         console.error('Error with EventSource.');
+    //         eventSource.close();
+    //       };
+      
+    //       // Cleanup function to close the EventSource when the component unmounts
+    //       return () => {
+    //         eventSource.close();
+    //       };
+    //     }, []);
+    
    
     const readWeight = async (record) => {
         try {
             //const res = await axios.get(`/api/orders/read/v1/${record.id}`);
+            console.log("record", record);
+            const res = await axios.get(`/api/getwbactivity/list/v1?truck=${record.truck_no}`);
+           
+            console.log("res", res.data);   
+            record.activitypoint = res.data.data[0].activitypoint;  
+            setAddress(res.data.data[0].address); 
             setInitialValues(record);
             setVisible(true);
-            // activityLevel(record.activitycheck);
-            // setActivityCheck(record.activitycheck);
+            //activityLevel(record.activitycheck);
+            setActivityCheck(record.activitycheck);
+            const ret = await axios.post(`/api/start?host=${res.data.data[0].address}`);
+            //const ret = await axios.get(`http://192.168.195.56:3010/api/weight/v1?host=${res.data.data[0].address}`);
+            console.log("ret", ret);
+            setWeight(ret.data.weight);
+            
+            
         } catch (error) {
+            console.log("error", error);
             notification.error({
                 message: "Error",
                 description: error.message
@@ -40,6 +86,11 @@ export default function App() {
             key: "order_number",
             search: false
         },
+        {
+            title: "Delivery Order No",
+            dataIndex: "do_no",
+            key: "do_no",          
+        },  
         {
             title: "Truck",
             dataIndex: "truck_no",
@@ -75,10 +126,21 @@ export default function App() {
             dataIndex: "isactive",
             key: "isactive",
             search: false,
-            render: (text) => {
+            render: (text, record) => {
                 //if 1 render active button
-                return text === true ? <span style={{ color: "green", textShadow: "0 0 3px green" }} className="active">Active</span> : <span style={{ color: "red" }} className="inactive">Inactive</span>;
+                //return text === true ? <span style={{ color: "green", textShadow: "0 0 3px green" }} className="active">Active</span> : <span style={{ color: "red" }} className="inactive">Inactive</span>;
+                //if 0, status  pending wb1 read if 1 pending wb2 read
+                return record.activitycheck === 0 ? <span style={{ color: "blue" }} className="inactive">Pending First Weight</span> : <span style={{ color: "green" }} className="active">Pending Second Weight</span>;
             },
+        },
+        {
+            title: "Created at",
+            dataIndex: "created_at",
+            key: "created_at",
+            search: false,
+            render: (text) => {
+                return new Date(text).toLocaleString();
+            }
         },
         {
             title: "Action",
@@ -88,6 +150,7 @@ export default function App() {
             //button to read weight
             render: (text, record) => (
                 <Button
+
                     type="primary"
                     disabled={record.status === 0}
                     onClick={() => {
@@ -102,43 +165,34 @@ export default function App() {
     ];
 
     const getWeight = async () => {
+
         try {
-            const res = await axios.get(`/api/weight/v1`,
-                {
-                    params: {
-                        activity_point: activitypoint
-                    }
-                }
-            );
-            //console.log("---", res.data);
+           const res = await axios.post(`/api/start?host=${address}`);    
+            //console.log("---", res);
             setWeight(res.data.weight);
-            form.setFieldsValue({ weightwb1: res.data.data.weight });
+            form.setFieldsValue({ weightwb1: res.data.weight });
         } catch (error) {
+            //console.log("error", error);
             notification.error({
                 message: "Error",
                 description: error.message
-            });
+             });
         }
     }
 
     const getWeight2 = async () => {
         try {
-            const res = await axios.get(`/api/weight/v1`,
-                {
-                    params: {
-                        activity_point: activitypoint
-                    }
-                }
-            );
-            //console.log("---", res.data);
-            setWeight2(res.data.weight);
-            form.setFieldsValue({ weightwb2: res.data.data.weight });
-        } catch (error) {
-            notification.error({
-                message: "Error",
-                description: error.message
-            });
-        }
+            const res = await axios.post(`/api/start?host=${address}`);    
+             //console.log("---", res);
+             setWeight(res.data.weight);
+             form.setFieldsValue({ weightwb2: res.data.weight });
+         } catch (error) {
+             //console.log("error", error);
+             notification.error({
+                 message: "Error",
+                 description: error.message
+              });
+         }
     }
 
     return (
@@ -161,6 +215,7 @@ export default function App() {
                     // ]}
                     request={async (params, sort, filter) => {
                         const res = await axios.get("/api/deliveryorders/list/v1",
+                            
                             {
                                 params: {
                                      ...params,
@@ -212,6 +267,13 @@ export default function App() {
                         values.activitypoint = activitypoint;
                         //console.log("values", values);                       
                         await axios.post("/api/createdeliveryactivities/v1", values);
+                        // const stop = await axios.get(`/api/start?host=${address}`);
+                        // if (stop.data.success === true) {
+                        //     notification.success({
+                        //         message: "Success",
+                        //         description: "Weight Stream stopped."
+                        //     });
+                        // }
                         setVisible(false);
                         notification.success({
                             message: "Success",
@@ -250,24 +312,26 @@ export default function App() {
                     initialValue={initialValues.trailler_no}
                 />
 
-                <ProFormSelect
-                    name="name"
+                <ProFormText
+                    name="activitypoint"
                     label="Activity Point"
-                    placeholder="Select Activity Point"
-                    request={async () => {
-                        const res = await axios.get("/api/activitypoints/list/v1");
-                        //console.log(res.data);
-                        return res.data.data.map((item) => {
-                            return {
-                                label: item.name,
-                                value: item.id
-                            };
-                        });
-                    }}
-                    onChange={(value) => {
-                        setActivityPoint(value);
-                    }
-                    }
+                    placeholder="Activity Point"
+                    initialValue={initialValues.activitypoint}
+                    disabled
+                    // request={async () => {
+                    //     const res = await axios.get("/api/activitypoints/list/v1");
+                    //     //console.log(res.data);
+                    //     return res.data.data.map((item) => {
+                    //         return {
+                    //             label: item.name,
+                    //             value: item.id
+                    //         };
+                    //     });
+                    // }}
+                    // onChange={(value) => {
+                    //     setActivityPoint(value);
+                    // }
+                    // }
                 />
                 <ProCard split="vertical">
                     <ProCard>

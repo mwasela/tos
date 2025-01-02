@@ -23,6 +23,12 @@ export default function App() {
             search: false
         },
         {
+            title: "Delivery Order No.",
+            dataIndex: "do_no",
+            key: "do_no",
+            search: false
+        },
+        {
             title: "Truck",
             dataIndex: "truck_no",
             key: "truck",
@@ -62,6 +68,15 @@ export default function App() {
                 return text === true ? <span style={{ color: "green", textShadow: "0 0 3px green" }} className="active">Active</span> : <span style={{ color: "red" }} className="inactive">Inactive</span>;
             },
         },
+        {
+            title: "Created at",
+            dataIndex: "created_at",
+            key: "created_at",
+            search: false,
+            render: (text) => {
+                return new Date(text).toLocaleString();
+            }
+        }
     ];
 
     return (
@@ -158,9 +173,10 @@ export default function App() {
                         setVisible(false);
                         tableRef.current.reload();
                     } catch (error) {
+                        //console.log("error--", error);
                         notification.error({
                             message: "Error",
-                            description: error.message
+                            description: error.response.data.message
                         });
                     }
                 }}
@@ -301,7 +317,7 @@ export default function App() {
                             message: "Success",
                             description: "Order created successfully."
                         });
-                        setVisible(false);
+                        setVisible1(false);
                         tableRef.current.reload();
                     } catch (error) {
                         notification.error({
