@@ -376,7 +376,7 @@ export default function App() {
                     }}
                 />
 
-                <ProFormSelect
+                {/* <ProFormSelect
                     name="product"
                     label="Product"
                     showSearch={true}
@@ -392,7 +392,7 @@ export default function App() {
                             return [];
                         }
                     }}
-                />
+                /> */}
 
 
 
