@@ -354,7 +354,7 @@ export default function App() {
                 }}
 
                 
-                destroyOnClose
+                destroyonclose
                 onFinish={async (values) => {
                     try {
                         
