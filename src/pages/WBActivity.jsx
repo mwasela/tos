@@ -23,7 +23,7 @@ export default function App() {
     React.useEffect(() => {
         // WebSocket connection URL
         if (!address) return;
-        const socket = new WebSocket(`ws://192.168.195.56:3020`);
+        const socket = new WebSocket(`ws://${host}:3020`);
         // Event listener for when the connection is established
         socket.onopen = () => {
             console.log("WebSocket connection established.");
