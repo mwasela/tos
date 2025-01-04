@@ -32,7 +32,7 @@ export default function App() {
         socket.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data); // Parse the received data
-                //console.log("Received data:", data);
+                console.log("Received data:", data);
                 // Update the state with the parsed data (weight)
                 if (data.weight ) {
                     setWeight(data.weight);
