@@ -3,7 +3,7 @@ import { ModalForm, ProCard, ProTable, ProFormText, ProFormSelect, Search, ProFo
 import { notification, Button, Tabs, Flex, Row } from "antd";
 import axios from "../helpers/axios";
 import axios2 from "axios";
-
+const host = "localhost";   
 
 export default function App() {
     const [visible, setVisible] = React.useState(false);
@@ -131,12 +131,12 @@ export default function App() {
     const streamdata = async (address) => {
         try {
             //const res = await axios.get(`/api/start?host=${address}`);
-            const res = await axios2.get('http://192.168.195.56:3020/startClient?host=192.168.195.56');
+            const res = await axios2.get(`http://${host}:3020/startClient?host=${address}`);
             //console.log("res", res);
             //startWS(address);
             setWeight(res.data.weight);
         } catch (error) {
-            console.log("error", error);
+            //console.log("error", error);
             notification.error({
                 message: "Error",
                 description: error.message
@@ -340,7 +340,7 @@ export default function App() {
                     footer: form.getFieldValue("weight") ? null : undefined,
                     onCancel:  async () => {
                         //call stop api
-                        const stop = await axios2.get('http://192.168.195.56:3020/stopClient?host=192.168.195.56');
+                        const stop = await axios2.get(`http://${host}:3020/stopClient?host=${address}`);
                         //console.log("stop", stop);
                         setVisible(false);
                     }}
@@ -348,7 +348,7 @@ export default function App() {
                 }
                 onAbort={async () => {
                     //call stop api
-                    const stop = await axios2.get('http://192.168.195.56:3020/stopClient?host=192.168.195.56');
+                    const stop = await axios2.get(`http://${host}:3020/stopClient?host=${address}`);
                     //console.log("stop", stop);
                    // setVisible(false);
                 }}
@@ -357,9 +357,9 @@ export default function App() {
                 destroyOnClose
                 onFinish={async (values) => {
                     try {
-                        setAddress(null);
-                        const stop = await axios2.get('http://192.168.195.56:3020/stopClient?host=192.168.195.56');
                         
+                        const stop = await axios2.get(`http://${host}:3020/stopClient?host=${address}`);
+                        setAddress(null);
                         values.activitypoint = activitypoint;
                         //console.log("values", values);                       
                         const datas = await axios.post("/api/createdeliveryactivities/v1", values);
