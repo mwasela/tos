@@ -32,7 +32,7 @@ export default function App() {
         socket.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data); // Parse the received data
-                console.log("Received data:", data);
+                //console.log("Received data:", data);
                 // Update the state with the parsed data (weight)
                 if (data.weight ) {
                     setWeight(data.weight);
@@ -100,10 +100,10 @@ export default function App() {
     const readWeight = async (record) => {
         try {
             //const res = await axios.get(`/api/orders/read/v1/${record.id}`);
-            console.log("record", record);
+            //console.log("record", record);
             const res = await axios.get(`/api/getwbactivity/list/v1?truck=${record.truck_no}`);
 
-            console.log("res", res.data);
+            //console.log("res", res.data);
             record.activitypoint = res.data.data[0].activitypoint;
             setAddress(res.data.data[0].address);
             setInitialValues(record);
@@ -132,7 +132,7 @@ export default function App() {
         try {
             //const res = await axios.get(`/api/start?host=${address}`);
             const res = await axios2.get(`http://${host}:3020/startClient?host=${address}`);
-            console.log("res", res);
+            //console.log("res", res);
             //startWS(address);
             setWeight(res.data.weight);
         } catch (error) {
