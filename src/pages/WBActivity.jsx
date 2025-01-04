@@ -132,7 +132,7 @@ export default function App() {
         try {
             //const res = await axios.get(`/api/start?host=${address}`);
             const res = await axios2.get(`http://${host}:3020/startClient?host=${address}`);
-            //console.log("res", res);
+            console.log("res", res);
             //startWS(address);
             setWeight(res.data.weight);
         } catch (error) {
