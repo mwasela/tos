@@ -171,10 +171,14 @@ export default function MainLayout() {
                 <div style={{ display: "flex", alignItems: "center" }}>
                     {user && (
                         <>
+                            
+                            {user.first_name} {user.last_name} {user.user_type_id === 1 ? "(Admin)" : "(Users)"}
+                           
                             <Avatar
-                                style={{ backgroundColor: '#87d068', marginRight: 8 }}
+                                style={{ marginLeft:10, backgroundColor: '#87d068', marginRight: 8 }}
                                 src= {AiOutlineUser}  // Replace with user avatar if available
                             >
+                              
                                 {user.first_name[0] + user.last_name[0].toUpperCase()}
                             </Avatar>
                             <Dropdown overlay={menu}>
