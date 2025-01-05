@@ -172,7 +172,7 @@ export default function MainLayout() {
                     {user && (
                         <>
                             
-                            {user.first_name} {user.last_name} {user.user_type_id === 1 ? "(Admin)" : "(Users)"}
+                            {user.first_name} {user.last_name} {user.user_type_id === 1 ? "(Admin)" : "(User)"}
                            
                             <Avatar
                                 style={{ marginLeft:10, backgroundColor: '#87d068', marginRight: 8 }}
