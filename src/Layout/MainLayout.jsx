@@ -114,6 +114,16 @@ export default function MainLayout() {
                             icon: <AiOutlineMerge />,
                         },
                         {
+                            path: "/masters/activitypoint",
+                            name: "Activity Points",
+                            icon: <AiOutlineMerge />,
+                        },
+                        {
+                            path: "/masters/activitytype",
+                            name: "Activity Type",
+                            icon: <AiOutlineMerge />,
+                        },
+                        {
                             path: "/masters/packingtype",
                             name: "Packing Type",
                             icon: <AiOutlineMerge />,
