@@ -103,7 +103,7 @@ export default function App() {
             //console.log("record", record);
             const res = await axios.get(`/api/getwbactivity/list/v1?truck=${record.truck_no}`);
 
-            //console.log("res", res.data);
+            console.log("res", res.data);
             record.activitypoint = res.data.data[0].activitypoint;
             setAddress(res.data.data[0].address);
             setInitialValues(record);
