@@ -3,7 +3,7 @@ import { ModalForm, ProCard, ProTable, ProFormText, ProFormSelect, Search, ProFo
 import { notification, Button, Tabs, Flex, Row } from "antd";
 import axios from "../helpers/axios";
 import axios2 from "axios";
-const host = "localhost";   
+const host = "30.30.30.150";   
 
 export default function App() {
     const [visible, setVisible] = React.useState(false);
@@ -120,7 +120,7 @@ export default function App() {
 
 
         } catch (error) {
-            console.log("error", error);
+            //console.log("error", error);
             notification.error({
                 message: "Error",
                 description: error.message
