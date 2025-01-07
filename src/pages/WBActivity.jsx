@@ -337,7 +337,8 @@ export default function App() {
                 }}
                 modalProps={{
                     //if no value in weight, disable submit button
-                    footer: form.getFieldValue("weight") ? null : undefined,
+                    //footer: form.getFieldValue("weight") ? null : undefined,
+                    footer: null,
                     onCancel:  async () => {
                         //call stop api
                         const stop = await axios2.get(`http://${host}:3020/stopClient?host=${address}`);

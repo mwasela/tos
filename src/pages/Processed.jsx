@@ -2,7 +2,7 @@ import React from "react";
 import { ModalForm, ProCard, ProTable, ProFormText, ProFormSelect, Search } from '@ant-design/pro-components';
 import { notification, Button } from "antd";
 import axios from "../helpers/axios";
-const API_URL = "http://localhost:3010";
+const API_URL = "http://30.30.30.150:3010";
 
 export default function App() {
     const [visible, setVisible] = React.useState(false);
