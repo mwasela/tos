@@ -446,7 +446,8 @@ export default function App() {
                             //disabled={initialValues?.activitycheck === 1}
                             style={{
                                 display: "none",
-                                fontWeight: "bold"
+                                fontWeight: "bold",
+                                fontSize: "20px"
                             }}
                         />
                         <Button
