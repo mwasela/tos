@@ -328,11 +328,13 @@ export default function App() {
                 title="Append Weight"
                 visible={visible}
                 form={form}
-                onVisibleChange={(visible) => {
+                onVisibleChange={async (visible) => {
                     setVisible(visible);
                     if (!visible) {
+                        const stop = await axios2.get(`http://${host}:3020/stopClient?host=${address}`);
                         form.resetFields();
                         tableRef.current.reload();
+                        
                     }
                 }}
                 modalProps={{
@@ -443,7 +445,8 @@ export default function App() {
                             disabled
                             //disabled={initialValues?.activitycheck === 1}
                             style={{
-                                display: "none"
+                                display: "none",
+                                fontWeight: "bold"
                             }}
                         />
                         <Button
@@ -467,7 +470,9 @@ export default function App() {
                             //disabled={initialValues?.activitycheck === 0}
                             disabled
                             style={{
-                                display: "none"
+                                display: "none",
+                                fontWeight: "bold",
+                                // fontSize: "20px"
                             }}
                         />
                         <Button
