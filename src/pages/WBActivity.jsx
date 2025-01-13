@@ -445,7 +445,7 @@ export default function App() {
                             disabled
                             //disabled={initialValues?.activitycheck === 1}
                             style={{
-                                display: "none",
+                                //display: "none",
                                 fontWeight: "bold",
                                 fontSize: "20px"
                             }}
@@ -471,9 +471,9 @@ export default function App() {
                             //disabled={initialValues?.activitycheck === 0}
                             disabled
                             style={{
-                                display: "none",
+                                //display: "none",
                                 fontWeight: "bold",
-                                // fontSize: "20px"
+                                fontSize: "20px"
                             }}
                         />
                         <Button
