@@ -104,13 +104,30 @@ export default function App() {
             const res = await axios.get(`/api/getwbactivity/list/v1?truck=${record.truck_no}`);
 
             console.log("res", res.data);
+            if(res.data.data.length === 0) {
+                notification.error({
+                    message: "Read Weight Error",
+                    description: "Unable to read weight, Check Transaction"
+                });
+                return;
+            }
+
+
+            if(res.data.data[0].activitypoint === null) {
+                notification.error({
+                    message: "Read Weight Error",
+                    description: "Activity Point Error, Check Transaction"
+                });
+                return;
+            }
+
             record.activitypoint = res.data.data[0].activitypoint;
             setAddress(res.data.data[0].address);
             setInitialValues(record);
             setVisible(true);
             //activityLevel(record.activitycheck);
             setActivityCheck(record.activitycheck);
-            console.log("activitypoint", record.activitypoint);
+            //console.log("activitypoint", record.activitypoint);
             streamdata(res.data.data[0].address);
 
 
